@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+	    "ms-vscode.cpptools",
+        "marus25.cortex-debug",
+	    "twxs.cmake",
+	    "plorefice.devicetree",
+        "EditorConfig.EditorConfig"
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "env" : {
+        "zephyrIncludePath": [
+            "${workspaceFolder}/zephyr/kernel/include",
+            "${workspaceFolder}/zephyr/arch/${ARCH}/include",
+            "${workspaceFolder}/zephyr/include",
+            "${workspaceFolder}/zephyr/include/drivers",
+            "${workspaceFolder}/build/${BOARD_NAME}/zephyr/include/generated",
+            "${workspaceFolder}/zephyr/soc/${ARCH}/${SOC_PATH}",
+            "${workspaceFolder}/zephyr/soc/${ARCH}/${SOC_PATH}/common",
+            "${workspaceFolder}/zephyr/soc/${ARCH}/${SOC_FAMILY}",
+            "${workspaceFolder}/modules/hal/stm32/stm32cube/${HAL_FAMILY}/drivers/include",
+            "${workspaceFolder}/modules/hal/stm32/stm32cube/${HAL_FAMILY}/soc",
+            "${workspaceFolder}/projects/boards/${ARCH}/${BOARD_NAME}",
+            "${workspaceFolder}/projects/include"
+        ],
+        "ARCH": "arm",
+        "SOC_PATH": "st_stm32",
+        "SOC_FAMILY": "st_stm32/stm32f4",
+        "HAL_FAMILY": "stm32f4xx",
+        "BOARD_NAME": "stm32f411_black_pill"
+    },
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [ "${zephyrIncludePath}", "/opt/gcc-arm-none-eabi/arm-none-eabi/include" ],
+            "defines": [],
+            "compilerPath": "/opt/gcc-arm-none-eabi/bin/arm-none-eabi-gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        },
+        {
+            "name": "Win32",
+            "includePath": [ "${zephyrIncludePath}", "C://gnu_arm_embedded/arm-none-eabi/include" ],
+            "defines": [],
+            "compilerPath": "C:/gnu_arm_embedded/bin/arm-none-eabi-gcc.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}

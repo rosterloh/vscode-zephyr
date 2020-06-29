@@ -1,0 +1,167 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Application",
+            "type": "shell",
+            "command": "west build -b ${input:boardName} -d build/${input:boardName} ${input:appName} -- -DCMAKE_BUILD_TYPE=${input:buildType}",
+            "linux": {
+                "options": {
+                    "env": {
+                        "ZEPHYR_TOOLCHAIN_VARIANT": "zephyr",
+                        "GNUARMEMB_TOOLCHAIN_PATH": "/opt/gcc-arm-none-eabi",
+                        "ZEPHYR_SDK_INSTALL_DIR": "~/zephyr-sdk"
+                    }
+                }
+            },
+            "windows": {
+                "options": {
+                    "env": {
+                        "ZEPHYR_TOOLCHAIN_VARIANT": "gnuarmemb",
+                        "GNUARMEMB_TOOLCHAIN_PATH": "C:\\gnu_arm_embedded",
+                    }
+                }
+            },
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Clean",
+            "type": "shell",
+            "command": "rm -rf build",
+            "windows": {
+                "command": "rm build -Recurse -Force"
+            },
+            "group": "build",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent"
+            }
+        },
+        {
+            "label": "Flash",
+            "type": "shell",
+            "command": "west flash -d build/${input:boardName} -r ${input:debugAdapter}",
+            "group": "build",
+            "presentation": {
+                "group": "monitor"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Debug",
+            "type": "shell",
+            "command": "west debug -d build/${input:boardName}",
+            "problemMatcher": []
+        },
+        {
+            "label": "Update",
+            "type": "shell",
+            "command": "west update",
+            "problemMatcher": []
+        },
+        {
+            "label": "Configure",
+            "type": "shell",
+            "command": "west build -d build/${input:boardName} -t guiconfig",
+            "group": "build",
+            "problemMatcher": [],
+            "presentation": {
+                "focus": true
+            }
+        },
+        {
+            "label": "Reset Target",
+            "type": "shell",
+            "command": "STM32_Programmer_CLI -c port=SWD reset=HWrst -rst",
+            "group": "build",
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "group": "monitor"
+            }
+        },
+        {
+            "label": "Monitor",
+            "type": "shell",
+            "command": "minicom -D ${input:serialPort} -b 115200 -c on",
+            "windows": {
+                "command": "miniterm.py ${input:serialPort} 115200"
+            },
+            "problemMatcher": [],
+            "group": "build",
+            "presentation": {
+                "focus": true,
+                "group": "monitor"
+            }
+        },
+        {
+            "label": "Monitor (RTT)",
+            "type": "shell",
+            "command": "JLinkRTTLogger -Device STM32F411CE -If SWD -Speed 4000 -RTTChannel 0 /dev/stdout",
+            "windows": {
+                "command": "JLinkRTTLogger.exe -Device STM32F411CE -If SWD -Speed 4000 -RTTChannel 0"
+            },
+            "group": "build",
+            "presentation": {
+                "focus": true,
+                "group": "monitor"
+            },
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "boardName",
+            "type": "pickString",
+            "description": "Device to build for",
+            "options": [
+                "adafruit_stm32f405_feather",
+                "disco_l475_iot1",
+                "stm32f411_black_pill"
+            ],
+            "default": "stm32f411_black_pill"
+        },
+        {
+            "id": "appName",
+            "type": "pickString",
+            "description": "Project to build",
+            "options": [
+                "projects/applications/jetbot",
+                "projects/applications/mqtt_sensor"
+            ],
+            "default": "oxsight/applications/jetbot"
+        },
+        {
+            "id": "buildType",
+            "type": "pickString",
+            "description": "Type of build",
+            "options": ["ZDebug", "ZRelease"],
+            "default": "ZDebug"
+        },
+        {
+            "id": "serialPort",
+            "type": "promptString",
+            "description": "Serial port to monitor",
+            "default": "/dev/ttyACM0"
+        },
+        {
+            "id": "debugAdapter",
+            "type": "pickString",
+            "description": "Type of debug adapter attached",
+            "options": [
+                "openocd",
+                "jlink",
+                "pyocd",
+                "dfu-util"
+            ],
+            "default": "pyocd"
+        }
+    ]
+}

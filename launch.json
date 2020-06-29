@@ -1,0 +1,50 @@
+{
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    // cortex-debug: https://marcelball.ca/projects/cortex-debug/cortex-debug-launch-configurations/
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "cppdbg",
+            "request": "launch",
+            "name": "Debug (West)",
+            "program": "./build/zephyr/zephyr.elf",
+            "stopAtEntry": false,
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": "Debug",
+            "linux": {
+                "MIMode": "gdb",
+                "miDebuggerPath": "/opt/gcc-arm-none-eabi/bin/arm-none-eabi-gdb"
+            },
+            "osx": {
+                "MIMode": "lldb"
+            },
+             "windows": {
+                "MIMode": "gdb",
+                "miDebuggerPath": "C:\\gnu_arm_embedded\\bin\\arm-none-eabi-gdb.exe"
+            }
+        },
+        {
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "openocd",
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/stm32f411_black_pill/zephyr/zephyr.elf",
+            "name": "Debug (OpenOCD)",
+            "device": "STM32F411CE",
+            "configFiles": [
+                "projects/boards/arm/stm32f411_black_pill/support/openocd.cfg"
+            ]
+        },
+        {
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "bmp",
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/zephyr/zephyr.elf",
+            "name": "Debug (Black Magic Probe)",
+            "device": "STM32L476JG",
+            "BMPGDBSerialPort": "/dev/ttyACM0",
+            "targetId": 1
+        }
+    ]
+}
