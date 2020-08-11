@@ -1,30 +1,32 @@
 {
+    // For more information, visit: https://code.visualstudio.com/docs/cpp/c-cpp-properties-schema-reference
     "env" : {
         "zephyrIncludePath": [
             "${workspaceFolder}/zephyr/kernel/include",
             "${workspaceFolder}/zephyr/arch/${ARCH}/include",
             "${workspaceFolder}/zephyr/include",
             "${workspaceFolder}/zephyr/include/drivers",
-            "${workspaceFolder}/build/${BOARD_NAME}/zephyr/include/generated",
+            "${workspaceFolder}/build/${APP_NAME}/${BOARD_NAME}/zephyr/include/generated",
             "${workspaceFolder}/zephyr/soc/${ARCH}/${SOC_PATH}",
             "${workspaceFolder}/zephyr/soc/${ARCH}/${SOC_PATH}/common",
             "${workspaceFolder}/zephyr/soc/${ARCH}/${SOC_FAMILY}",
             "${workspaceFolder}/modules/hal/stm32/stm32cube/${HAL_FAMILY}/drivers/include",
             "${workspaceFolder}/modules/hal/stm32/stm32cube/${HAL_FAMILY}/soc",
-            "${workspaceFolder}/projects/boards/${ARCH}/${BOARD_NAME}",
-            "${workspaceFolder}/projects/include"
+            "${workspaceFolder}/waveoptics/boards/${ARCH}/${BOARD_NAME}",
+            "${workspaceFolder}/waveoptics/include"
         ],
         "ARCH": "arm",
         "SOC_PATH": "st_stm32",
-        "SOC_FAMILY": "st_stm32/stm32f4",
-        "HAL_FAMILY": "stm32f4xx",
-        "BOARD_NAME": "stm32f411_black_pill"
+        "SOC_FAMILY": "st_stm32/stm32l4",
+        "HAL_FAMILY": "stm32l4xx",
+        "BOARD_NAME": "spectre",
+        "APP_NAME": "hero"
     },
     "configurations": [
         {
             "name": "Linux",
             "includePath": [ "${zephyrIncludePath}", "/opt/gcc-arm-none-eabi/arm-none-eabi/include" ],
-            "defines": [],
+            "defines": ["NOVA_SUPPORT", "NOVA_ASIC", "NOVA_IDM", "NOVA_BRD_COMMON", "K22_SUPPORT"],
             "compilerPath": "/opt/gcc-arm-none-eabi/bin/arm-none-eabi-gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
@@ -33,7 +35,7 @@
         {
             "name": "Win32",
             "includePath": [ "${zephyrIncludePath}", "C://gnu_arm_embedded/arm-none-eabi/include" ],
-            "defines": [],
+            "defines": ["NOVA_SUPPORT", "NOVA_ASIC", "NOVA_IDM", "NOVA_BRD_COMMON", "K22_SUPPORT"],
             "compilerPath": "C:/gnu_arm_embedded/bin/arm-none-eabi-gcc.exe",
             "cStandard": "c11",
             "cppStandard": "c++17",

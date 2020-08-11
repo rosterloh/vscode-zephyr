@@ -1,0 +1,17 @@
+{
+        "editor.tabSize": 8,
+        "editor.insertSpaces": false,
+        "editor.detectIndentation": false,
+        "C_Cpp.clang_format_fallbackStyle": "file",
+	"C_Cpp.default.browse.path": ["zephyr"],
+	"files.associations": {
+		"*.overlay": "dts",
+		"*.h": "c",
+		"*_defconfig": "Kconfig"
+	},
+	"kconfig.zephyr.board": {
+		"board": "nucleo_l432kc",
+		"arch": "arm",
+		"dir": "c:/Users/richa/workspace/waveoptics-firmware/zephyr/boards/arm/nucleo_l432kc"
+	}
+}

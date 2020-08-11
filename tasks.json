@@ -6,7 +6,7 @@
         {
             "label": "Build Application",
             "type": "shell",
-            "command": "west build -b ${input:boardName} -d build/${input:boardName} ${input:appName} -- -DCMAKE_BUILD_TYPE=${input:buildType}",
+            "command": "west build -b ${input:boardName} -d build/${input:appName}/${input:boardName} ${input:appName} -- -DCMAKE_BUILD_TYPE=${input:buildType}",
             "linux": {
                 "options": {
                     "env": {
@@ -47,7 +47,7 @@
         {
             "label": "Flash",
             "type": "shell",
-            "command": "west flash -d build/${input:boardName} -r ${input:debugAdapter}",
+            "command": "west flash -d build/${input:appName}/${input:boardName} -r ${input:debugAdapter}",
             "group": "build",
             "presentation": {
                 "group": "monitor"
@@ -57,7 +57,7 @@
         {
             "label": "Debug",
             "type": "shell",
-            "command": "west debug -d build/${input:boardName}",
+            "command": "west debug -d build/${input:appName}/${input:boardName}",
             "problemMatcher": []
         },
         {
@@ -69,7 +69,7 @@
         {
             "label": "Configure",
             "type": "shell",
-            "command": "west build -d build/${input:boardName} -t guiconfig",
+            "command": "west build -d build/${input:appName}/${input:boardName} -t guiconfig",
             "group": "build",
             "problemMatcher": [],
             "presentation": {
@@ -122,21 +122,20 @@
             "type": "pickString",
             "description": "Device to build for",
             "options": [
-                "adafruit_stm32f405_feather",
-                "disco_l475_iot1",
-                "stm32f411_black_pill"
+                "banshee",
+                "spectre"
             ],
-            "default": "stm32f411_black_pill"
+            "default": "spectre"
         },
         {
             "id": "appName",
             "type": "pickString",
             "description": "Project to build",
             "options": [
-                "projects/applications/jetbot",
-                "projects/applications/mqtt_sensor"
+                "waveoptics/applications/banshee",
+                "waveoptics/applications/hero"
             ],
-            "default": "oxsight/applications/jetbot"
+            "default": "waveoptics/applications/hero"
         },
         {
             "id": "buildType",
@@ -161,7 +160,7 @@
                 "pyocd",
                 "dfu-util"
             ],
-            "default": "pyocd"
+            "default": "openocd"
         }
     ]
 }
